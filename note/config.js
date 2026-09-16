@@ -4,5 +4,5 @@
 window.BOCHI_SUPABASE = {
   url: "https://tfwsksdnfdiwficbfqhf.supabase.co",
   anonKey: "sb_publishable_dHUPsVPNOosVo1tdNwUxuA_1wyx_942",
-  apple: false,
+  apple: true,
 };
