@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ぼちぼちノート｜今日の3つの問い</title>
+    <meta name="description" content="今日の調子、今日できたこと、明日ひとつだけ。3つの問いに答えるだけの、小さな振り返りノート。" />
+    <meta name="theme-color" content="#F7F4ED" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23F7F4ED'/%3E%3Cellipse cx='24' cy='44' rx='12' ry='6' fill='%23C9BEA8'/%3E%3Cellipse cx='42' cy='46' rx='9' ry='4.5' fill='%23E9E1D4'/%3E%3Cpath d='M32 38V24' stroke='%239DA58A' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M32 30c-4 0-7-3-7-7 4 0 7 3 7 7Zm0-3c4 0 7-3 7-7-4 0-7 3-7 7Z' fill='%239DA58A'/%3E%3C/svg%3E" />
+    <style>
+      :root {
+        --charcoal: #484642; --cream: #F7F4ED; --sage: #9DA58A; --sand: #C9BEA8;
+        --pale-sand: #E9E1D4; --warm-white: #FCFBF8; --soft-brown: #84796D;
+        --r-s: 12px; --r-m: 16px; --r-l: 20px;
+        --shadow: 0 8px 24px rgba(72, 70, 66, 0.08);
+        --ease: cubic-bezier(0.22, 1, 0.36, 1);
+        --heading: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Noto Sans JP", system-ui, sans-serif;
+        --body: "Noto Sans JP", "Hiragino Sans", system-ui, sans-serif;
+      }
+      * { box-sizing: border-box; }
+      html { background: var(--cream); }
+      body { margin: 0; color: var(--charcoal); background: var(--cream); font-family: var(--body); line-height: 1.7; font-size: 16px; -webkit-font-smoothing: antialiased; }
+      a { color: var(--charcoal); }
+      .wrap { max-width: 720px; margin: 0 auto; padding: 24px 20px 80px; }
+      @media (min-width: 768px) { .wrap { padding: 40px 32px 96px; } }
+      header.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 32px; }
+      .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--heading); font-weight: 700; font-size: 18px; }
+      .brand svg { width: 28px; height: 20px; }
+      .brand small { font-family: var(--body); font-weight: 500; color: var(--soft-brown); font-size: 13px; }
+      .top a.link { font-size: 14px; color: var(--soft-brown); text-decoration: none; border-bottom: 1px solid var(--sand); }
+      h1 { font-family: var(--heading); font-weight: 700; font-size: 26px; line-height: 1.35; margin: 0 0 8px; text-wrap: balance; }
+      @media (min-width: 768px) { h1 { font-size: 30px; } }
+      .lead { margin: 0 0 28px; color: var(--soft-brown); font-size: 15px; }
+      .date { font-size: 14px; color: var(--soft-brown); margin: 0 0 16px; font-variant-numeric: tabular-nums; }
+
+      form.note { display: grid; gap: 16px; }
+      fieldset { border: 0; margin: 0; padding: 20px; background: var(--warm-white); border-radius: var(--r-l); box-shadow: var(--shadow); }
+      legend, .q { font-family: var(--heading); font-weight: 700; font-size: 18px; margin: 0 0 12px; padding: 0; }
+      .q-num { display: inline-block; font-family: var(--body); font-weight: 500; font-size: 12px; color: var(--soft-brown); letter-spacing: 1px; margin-bottom: 6px; }
+      .moods { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+      .mood { position: relative; }
+      .mood input { position: absolute; inset: 0; opacity: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+      .mood span { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-height: 64px; padding: 10px 8px; border-radius: var(--r-m); background: var(--pale-sand); border: 2px solid transparent; font-weight: 500; transition: border-color 160ms var(--ease), background 160ms var(--ease); }
+      .mood span b { font-size: 22px; font-weight: 500; }
+      .mood input:checked + span { border-color: var(--sage); background: #EEF0E6; }
+      .mood input:focus-visible + span { outline: 3px solid var(--sage); outline-offset: 2px; }
+      textarea { width: 100%; min-height: 84px; resize: vertical; padding: 12px 14px; border: 1px solid var(--sand); border-radius: var(--r-s); background: var(--cream); color: var(--charcoal); font: inherit; line-height: 1.6; }
+      textarea:focus-visible { outline: 3px solid var(--sage); outline-offset: 1px; border-color: var(--sage); }
+      .hint { margin: 8px 0 0; font-size: 13px; color: var(--soft-brown); }
+      .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 4px; }
+      .btn { appearance: none; border: 0; cursor: pointer; font: inherit; font-weight: 700; padding: 14px 22px; border-radius: 999px; min-height: 44px; transition: transform 160ms var(--ease), background 160ms var(--ease); }
+      .btn-primary { background: var(--charcoal); color: var(--warm-white); }
+      .btn-primary:hover { background: #5b5853; }
+      .btn-ghost { background: transparent; color: var(--soft-brown); text-decoration: underline; text-underline-offset: 4px; padding-left: 8px; padding-right: 8px; }
+      .btn:focus-visible { outline: 3px solid var(--sage); outline-offset: 3px; }
+      .btn:active { transform: translateY(1px); }
+
+      .status { margin-top: 8px; font-size: 15px; min-height: 1.6em; }
+      .status[data-kind="success"] { color: #5f6b47; }
+      .status[data-kind="error"] { color: #8a4a3a; }
+
+      section.month { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--sand); }
+      section.month h2 { font-family: var(--heading); font-size: 18px; margin: 0 0 8px; }
+      .count { font-size: 15px; margin: 0 0 16px; }
+      .count b { font-family: var(--heading); font-size: 22px; font-weight: 700; }
+      ul.history { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+      ul.history li { padding: 14px 16px; background: var(--warm-white); border-radius: var(--r-m); border: 1px solid var(--pale-sand); }
+      ul.history .h-date { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--soft-brown); margin-bottom: 4px; font-variant-numeric: tabular-nums; }
+      ul.history .h-mood { font-size: 16px; }
+      ul.history p { margin: 2px 0; font-size: 15px; }
+      ul.history p span { color: var(--soft-brown); font-size: 13px; margin-right: 6px; }
+      .empty { color: var(--soft-brown); font-size: 15px; }
+      .rest { margin-top: 12px; }
+      details.manage { margin-top: 28px; font-size: 14px; color: var(--soft-brown); }
+      details.manage summary { cursor: pointer; }
+      details.manage .manage-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+      details.manage button { font: inherit; font-size: 13px; background: transparent; color: var(--soft-brown); border: 1px solid var(--sand); border-radius: 999px; padding: 8px 14px; cursor: pointer; min-height: 36px; }
+      footer { margin-top: 48px; font-size: 13px; color: var(--soft-brown); line-height: 1.7; }
+      footer p { margin: 6px 0; }
+      .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+      @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="top">
+        <a class="brand" href="../" aria-label="ぼちぼち トップへ">
+          <svg viewBox="0 0 42 30" aria-hidden="true"><ellipse cx="12" cy="24" rx="10" ry="5" fill="#C9BEA8"/><ellipse cx="30" cy="25" rx="8" ry="4" fill="#E9E1D4"/><path d="M21 24V8" stroke="#9DA58A" stroke-width="2.4" stroke-linecap="round"/><path d="M21 14c-4 0-7-3-7-7 4 0 7 3 7 7Zm0-3c4 0 7-3 7-7-4 0-7 3-7 7Z" fill="#9DA58A"/></svg>
+          ぼちぼち <small>ノート</small>
+        </a>
+        <a class="link" href="../">トップへ</a>
+      </header>
+
+      <main>
+        <h1>今日の3つの問い。</h1>
+        <p class="lead">正解を出すためではなく、自分の状態に少し気づくためのノートです。書けるところだけで十分です。</p>
+        <p class="date" id="today"></p>
+
+        <form class="note" id="note" novalidate>
+          <fieldset>
+            <span class="q-num">1 / 3</span>
+            <legend class="q">今日の調子は？</legend>
+            <div class="moods" role="radiogroup" aria-label="今日の調子">
+              <label class="mood"><input type="radio" name="mood" value="good" /><span><b aria-hidden="true">☀</b>良い</span></label>
+              <label class="mood"><input type="radio" name="mood" value="ok" /><span><b aria-hidden="true">☁</b>ふつう</span></label>
+              <label class="mood"><input type="radio" name="mood" value="tired" /><span><b aria-hidden="true">☂</b>しんどい</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <span class="q-num">2 / 3</span>
+            <legend class="q"><label for="done">今日できたことは？</label></legend>
+            <textarea id="done" name="done" maxlength="300" placeholder="例：洗濯物を取り込んだ。メールを1通返した。"></textarea>
+            <p class="hint">小さなことで十分です。「休んだ」も、できたことです。</p>
+          </fieldset>
+
+          <fieldset>
+            <span class="q-num">3 / 3</span>
+            <legend class="q"><label for="tomorrow">明日、一つだけやるなら？</label></legend>
+            <textarea id="tomorrow" name="tomorrow" maxlength="200" placeholder="例：朝、カーテンを開ける。"></textarea>
+            <p class="hint">一つで十分です。できそうなことを。</p>
+          </fieldset>
+
+          <div class="actions">
+            <button class="btn btn-primary" type="submit">今日のぶんを残す</button>
+            <button class="btn btn-ghost" type="button" id="rest-btn">今日は休む</button>
+          </div>
+          <p class="status" id="status" role="status" aria-live="polite"></p>
+        </form>
+
+        <section class="month" aria-labelledby="month-title">
+          <h2 id="month-title">これまで</h2>
+          <p class="count" id="count"></p>
+          <ul class="history" id="history"></ul>
+          <p class="empty" id="empty" hidden>まだ記録はありません。今日はこれだけでも十分です。</p>
+          <details class="manage">
+            <summary>記録の管理</summary>
+            <p>記録はこの端末のブラウザの中だけに保存されます。サーバーには送られません。</p>
+            <div class="manage-actions">
+              <button type="button" id="export-btn">テキストでコピー</button>
+              <button type="button" id="clear-btn">すべて削除</button>
+            </div>
+          </details>
+        </section>
+      </main>
+
+      <footer>
+        <p>このノートは一般的なセルフケアの補助を目的としています。個別の診断や治療を行うものではありません。症状が強い場合や安全に不安がある場合は、医療機関や適切な相談先をご利用ください。</p>
+        <p>よりそいホットライン 0120-279-338（24時間・無料）／いのちの電話 0570-783-556</p>
+        <p>© <span id="year">2026</span> ぼちぼち — 人生を、ぼちぼち良くする。</p>
+      </footer>
+    </div>
+
+    <script>
+      (function () {
+        var KEY = "bochibochi.note.v1";
+        var MOOD = { good: "☀ 良い", ok: "☁ ふつう", tired: "☂ しんどい", rest: "🛌 休んだ" };
+        var $ = function (s) { return document.querySelector(s); };
+        var form = $("#note"), status = $("#status"), history = $("#history"), empty = $("#empty"), count = $("#count");
+
+        function todayKey(d) {
+          d = d || new Date();
+          var m = String(d.getMonth() + 1).padStart(2, "0"), day = String(d.getDate()).padStart(2, "0");
+          return d.getFullYear() + "-" + m + "-" + day;
+        }
+        function load() { try { return JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { return {}; } }
+        function save(data) { try { localStorage.setItem(KEY, JSON.stringify(data)); return true; } catch (e) { return false; } }
+        function fmt(key) { var p = key.split("-"); return p[0] + "年" + Number(p[1]) + "月" + Number(p[2]) + "日"; }
+
+        function render() {
+          var data = load(), keys = Object.keys(data).sort().reverse();
+          var now = new Date(), ym = todayKey(now).slice(0, 7);
+          var monthDays = keys.filter(function (k) { return k.slice(0, 7) === ym; }).length;
+          count.innerHTML = monthDays > 0
+            ? "今月は <b>" + monthDays + "日</b>、自分のことを振り返りました。"
+            : "今月はまだこれからです。";
+          history.innerHTML = "";
+          empty.hidden = keys.length > 0;
+          keys.slice(0, 31).forEach(function (k) {
+            var e = data[k], li = document.createElement("li");
+            var mood = MOOD[e.mood] || "";
+            li.innerHTML =
+              '<div class="h-date"><span>' + fmt(k) + '</span><span class="h-mood">' + mood + "</span></div>" +
+              (e.done ? "<p><span>できたこと</span>" + esc(e.done) + "</p>" : "") +
+              (e.tomorrow ? "<p><span>明日ひとつ</span>" + esc(e.tomorrow) + "</p>" : "") +
+              (e.rest ? "<p><span>今日は休む日にしました</span></p>" : "");
+            history.appendChild(li);
+          });
+        }
+        function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+        function fillToday() {
+          var e = load()[todayKey()];
+          if (!e) return;
+          if (e.mood && e.mood !== "rest") { var r = form.querySelector('input[name="mood"][value="' + e.mood + '"]'); if (r) r.checked = true; }
+          $("#done").value = e.done || ""; $("#tomorrow").value = e.tomorrow || "";
+        }
+        function setStatus(msg, kind) { status.textContent = msg; status.dataset.kind = kind || ""; }
+
+        $("#today").textContent = fmt(todayKey()) + "（" + ["日", "月", "火", "水", "木", "金", "土"][new Date().getDay()] + "）";
+        $("#year").textContent = String(new Date().getFullYear());
+
+        form.addEventListener("submit", function (ev) {
+          ev.preventDefault();
+          var mood = (form.querySelector('input[name="mood"]:checked') || {}).value || "";
+          var done = $("#done").value.trim(), tomorrow = $("#tomorrow").value.trim();
+          if (!mood && !done && !tomorrow) { setStatus("どれか一つでいいので、書けるところを。", "error"); return; }
+          var data = load();
+          data[todayKey()] = { mood: mood, done: done, tomorrow: tomorrow, at: new Date().toISOString() };
+          if (!save(data)) { setStatus("この端末では保存できませんでした。書いたことは、それでも今日の材料です。", "error"); return; }
+          setStatus("今日のぶんを残しました。これだけで十分です。", "success");
+          render();
+        });
+        $("#rest-btn").addEventListener("click", function () {
+          var data = load();
+          data[todayKey()] = { mood: "rest", done: "", tomorrow: "", rest: true, at: new Date().toISOString() };
+          save(data);
+          form.reset();
+          setStatus("今日は休む日。それも大事な選択です。", "success");
+          render();
+        });
+        $("#export-btn").addEventListener("click", function () {
+          var data = load(), lines = Object.keys(data).sort().map(function (k) {
+            var e = data[k]; return fmt(k) + "  " + (MOOD[e.mood] || "") + (e.done ? "\n  できたこと: " + e.done : "") + (e.tomorrow ? "\n  明日ひとつ: " + e.tomorrow : "");
+          });
+          var text = lines.join("\n\n") || "まだ記録はありません。";
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(function () { setStatus("記録をコピーしました。", "success"); }, function () { setStatus("コピーできませんでした。", "error"); });
+          } else { setStatus("この環境ではコピーできませんでした。", "error"); }
+        });
+        $("#clear-btn").addEventListener("click", function () {
+          if (!confirm("この端末に保存した記録をすべて削除します。よろしいですか？")) return;
+          try { localStorage.removeItem(KEY); } catch (e) {}
+          form.reset(); setStatus("記録を削除しました。", "success"); render();
+        });
+
+        fillToday(); render();
+      })();
+    </script>
+  </body>
+</html>
