@@ -287,7 +287,7 @@
           sb.auth.onAuthStateChange(function (ev, session) {
             var next = session ? session.user : null, changed = (next && next.id) !== (user && user.id);
             user = next; setAuthUI();
-            if (ev === "SIGNED_IN" && (location.search || location.hash)) history.replaceState(null, "", location.pathname);
+            if (ev === "SIGNED_IN" && location.href !== location.origin + location.pathname) history.replaceState(null, "", location.pathname);
             if (changed && user) syncAll();
           });
           sb.auth.getSession().then(function (r) { user = r.data.session ? r.data.session.user : null; setAuthUI(); if (user) syncAll(); });
