@@ -37,13 +37,13 @@
       .date { font-size: 14px; color: var(--soft-brown); margin: 0 0 16px; font-variant-numeric: tabular-nums; }
 
       form.note { display: grid; gap: 16px; }
-      fieldset { border: 0; margin: 0; padding: 20px; background: var(--warm-white); border-radius: var(--r-l); box-shadow: var(--shadow); }
+      fieldset { border: 0; margin: 0; min-width: 0; padding: 20px; background: var(--warm-white); border-radius: var(--r-l); box-shadow: var(--shadow); }
       legend, .q { font-family: var(--heading); font-weight: 700; font-size: 18px; margin: 0 0 12px; padding: 0; }
       .q-num { display: inline-block; font-family: var(--body); font-weight: 500; font-size: 12px; color: var(--soft-brown); letter-spacing: 1px; margin-bottom: 6px; }
-      .moods { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+      .moods { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
       .mood { position: relative; }
       .mood input { position: absolute; inset: 0; opacity: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
-      .mood span { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-height: 64px; padding: 10px 8px; border-radius: var(--r-m); background: var(--pale-sand); border: 2px solid transparent; font-weight: 500; transition: border-color 160ms var(--ease), background 160ms var(--ease); }
+      .mood span { min-width: 0; font-size: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-height: 64px; padding: 10px 8px; border-radius: var(--r-m); background: var(--pale-sand); border: 2px solid transparent; font-weight: 500; transition: border-color 160ms var(--ease), background 160ms var(--ease); }
       .mood span b { font-size: 22px; font-weight: 500; }
       .mood input:checked + span { border-color: var(--sage); background: #EEF0E6; }
       .mood input:focus-visible + span { outline: 3px solid var(--sage); outline-offset: 2px; }
