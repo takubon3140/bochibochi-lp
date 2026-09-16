@@ -38,9 +38,8 @@
 
       form.note { display: grid; gap: 16px; }
       fieldset { border: 0; margin: 0; min-width: 0; padding: 20px; background: var(--warm-white); border-radius: var(--r-l); box-shadow: var(--shadow); }
-      legend { float: left; width: 100%; }
-      legend, .q { font-family: var(--heading); font-weight: 700; font-size: 18px; margin: 0 0 12px; padding: 0; }
-      .q-num { display: inline-block; font-family: var(--body); font-weight: 500; font-size: 12px; color: var(--soft-brown); letter-spacing: 1px; margin-bottom: 6px; }
+      .q { font-family: var(--heading); font-weight: 700; font-size: 18px; margin: 0 0 12px; padding: 0; }
+      .q-num { display: block; font-family: var(--body); font-weight: 500; font-size: 12px; color: var(--soft-brown); letter-spacing: 1px; margin-bottom: 6px; }
       .moods { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
       .mood { position: relative; }
       .mood input { position: absolute; inset: 0; opacity: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
@@ -101,9 +100,9 @@
         <p class="date" id="today"></p>
 
         <form class="note" id="note" novalidate>
-          <fieldset>
+          <fieldset aria-labelledby="q1">
             <span class="q-num">1 / 3</span>
-            <legend class="q">今日の調子は？</legend>
+            <div class="q" id="q1">今日の調子は？</div>
             <div class="moods" role="radiogroup" aria-label="今日の調子">
               <label class="mood"><input type="radio" name="mood" value="good" /><span><b aria-hidden="true">☀</b>良い</span></label>
               <label class="mood"><input type="radio" name="mood" value="ok" /><span><b aria-hidden="true">☁</b>ふつう</span></label>
@@ -111,16 +110,16 @@
             </div>
           </fieldset>
 
-          <fieldset>
+          <fieldset aria-labelledby="q2">
             <span class="q-num">2 / 3</span>
-            <legend class="q"><label for="done">今日できたことは？</label></legend>
+            <div class="q" id="q2"><label for="done">今日できたことは？</label></div>
             <textarea id="done" name="done" maxlength="300" placeholder="例：洗濯物を取り込んだ。メールを1通返した。"></textarea>
             <p class="hint">小さなことで十分です。「休んだ」も、できたことです。</p>
           </fieldset>
 
-          <fieldset>
+          <fieldset aria-labelledby="q3">
             <span class="q-num">3 / 3</span>
-            <legend class="q"><label for="tomorrow">明日、一つだけやるなら？</label></legend>
+            <div class="q" id="q3"><label for="tomorrow">明日、一つだけやるなら？</label></div>
             <textarea id="tomorrow" name="tomorrow" maxlength="200" placeholder="例：朝、カーテンを開ける。"></textarea>
             <p class="hint">一つで十分です。できそうなことを。</p>
           </fieldset>
